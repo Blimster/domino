@@ -39,8 +39,7 @@ void main() {
 
 extension on Page {
   Future<String> testOutput() async {
-    final value =
-        await $eval('#app-output', 'function (el) {return el.innerText; }');
+    final value = await $eval('#app-output', 'function (el) {return el.innerText; }');
     return value.toString();
   }
 

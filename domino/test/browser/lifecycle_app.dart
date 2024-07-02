@@ -1,9 +1,10 @@
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:domino/browser.dart';
+import 'package:web/web.dart';
 
 void main() {
-  window.onLoad.listen((_) => _main());
+  window.addEventListener('onload', ((_) => _main()).toJS);
 }
 
 void _main() {

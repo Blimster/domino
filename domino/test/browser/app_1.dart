@@ -1,38 +1,39 @@
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:domino/browser.dart';
+import 'package:web/web.dart';
 
 void main() {
-  window.onLoad.listen((_) => _main());
+  window.addEventListener('onload', ((_) => _main()).toJS);
 }
 
 void _main() {
   final root = document.getElementById('root')!;
   final view = registerView(root: root, builderFn: _build);
 
-  final appOutput = PreElement()..id = 'app-output';
+  final appOutput = HTMLPreElement.pre()..id = 'app-output';
   document.body!.append(appOutput);
 
-  final appButtons = DivElement()..id = 'app-buttons';
+  final appButtons = HTMLDivElement()..id = 'app-buttons';
   document.body!.append(appButtons);
-  appButtons.append(ButtonElement()
+  appButtons.append(HTMLButtonElement()
     ..text = 'test-1'
     ..id = 'app-test-1'
     ..onClick.listen((event) async {
       appOutput.text = '';
-      document.getElementById('incrementer')!.click();
-      document.getElementById('incrementer')!.click();
+      (document.getElementById('incrementer') as HTMLElement?)!.click();
+      (document.getElementById('incrementer') as HTMLElement?)!.click();
       await view.invalidate();
-      document.getElementById('incrementer')!.click();
+      (document.getElementById('incrementer') as HTMLElement?)!.click();
       await view.invalidate();
-      document.getElementById('incrementer')!.click();
+      (document.getElementById('incrementer') as HTMLElement?)!.click();
       await view.invalidate();
       appOutput.text = [
         'test-1',
         'builds: $_builds',
         'created: $_created',
         'removed: $_removed',
-        'clicks: $_clicks (${document.getElementById('incrementer')!.innerHtml})',
+        'clicks: $_clicks (${document.getElementById('incrementer')!.innerHTML})',
       ].join('\n');
     }));
 }
