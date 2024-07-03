@@ -360,7 +360,7 @@ class _EventBinding {
 
   _EventBinding(this.view, this.element, this.type, this.fn);
 
-  void _callback(dynamic event) {
+  void _callback(Event event) {
     fn(_DomEvent(view, type, element, event));
   }
 
